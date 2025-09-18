@@ -359,13 +359,15 @@ document.addEventListener("DOMContentLoaded", () => {
           link.href = data.downloadURLPdf;
           link.download = "Квитанция.pdf";
           document.body.appendChild(link);
+          // 👉 Отправляем ссылку в Flutter
+          if (window.flutter_inappwebview) {
+            window.flutter_inappwebview.callHandler("onDownload", link.href);
+          }
           link.click();
           document.body.removeChild(link);
         });
       }
 
-      // Кнопка "Сохранить QR"
-      // Кнопка "Сохранить QR"
       // Кнопка "Сохранить QR"
       const saveQrBtn = document.getElementById("save-qr");
       if (saveQrBtn) {
