@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./fonts/font.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="icon" type="image/png" href="./images/logo.png" />
+
+    <title>Единый Расчётный Центр</title></head
+  >и
+
+  <body>
+    <header>
+      <img src="./images/logo.png" alt="logo" />
+
+      <p>Единый Расчётный Центр</p>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <h1 class="welcome__title">Добро пожаловать</h1>
+
+        <p class="welcome__subtitle">Выберите поставщика услуг</p>
+
+        <div class="welcome__list" id="providers-list"></div>
+      </section>
+
+      <section id="selected-provider" class="welcome__selected">
+        <p>Введите лицевой счёт</p>
+
+        <form class="form">
+          <input type="text" id="form-input" class="form-input" placeholder="Лицевой счёт" required />
+
+          <button type="submit" class="form-button" disabled>Подтвердить</button>
+        </form>
+      </section>
+
+      <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal__backdrop" data-close></div>
+
+        <div class="modal__content">
+          <h3 id="modal-title">Ошибка</h3>
+          <p id="modal-text">Произошла ошибка</p>
+
+          <button class="modal__close" aria-label="Закрыть" data-close>Повторить</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
