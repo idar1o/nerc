@@ -383,6 +383,10 @@ document.addEventListener("DOMContentLoaded", () => {
             link.href = URL.createObjectURL(blob);
             link.download = "qr-code.png"; // имя файла
             document.body.appendChild(link);
+            // 👉 Отправляем ссылку в Flutter
+            if (window.flutter_inappwebview) {
+              window.flutter_inappwebview.callHandler("onDownload", link.href);
+            }
             link.click();
             document.body.removeChild(link);
 
