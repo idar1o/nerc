@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.appendChild(link);
             // 👉 Отправляем ссылку в Flutter
             if (window.flutter_inappwebview) {
-              window.flutter_inappwebview.callHandler("onDownload", link.href);
+              window.flutter_inappwebview.callHandler("onDownloadQr", link.href);
             }
             link.click();
             document.body.removeChild(link);
