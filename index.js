@@ -284,39 +284,36 @@ document.addEventListener("DOMContentLoaded", () => {
         </section>
       `;
       //????????????????????? Скачать QR
-      const qrDownloadBtn = document.getElementById("download-qr");
-      if (qrDownloadBtn) {
-        qrDownloadBtn.addEventListener("click", async () => {
-          const qrImage = document.getElementById("qr-image");
-          if (!qrImage || !qrImage.src) return;
+      // 📥 Скачать QR
+const qrDownloadBtn = document.getElementById("download-qr");
+if (qrDownloadBtn) {
+  qrDownloadBtn.addEventListener("click", async () => {
+    const qrImage = document.getElementById("qr-image");
+    if (!qrImage || !qrImage.src) return;
 
-          try {
-            // Получаем файл как blob
-            const response = await fetch(qrImage.src, { mode: "cors" });
-            if (!response.ok) throw new Error("Ошибка при загрузке QR");
+    try {
+      const originalUrl = qrImage.src;
 
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-
-            // Создаем ссылку и кликаем по ней
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = "qr-code.png"; // имя файла
-            document.body.appendChild(link);
-            if (window.flutter_inappwebview) {
-              window.flutter_inappwebview.callHandler("onDownloadQr", link.href);
-            }
-            link.click();
-            document.body.removeChild(link);
-
-            // Чистим временный URL
-            URL.revokeObjectURL(url);
-          } catch (err) {
-            console.error("Ошибка при скачивании QR:", err);
-            alert("Не удалось скачать QR. Попробуйте снова.");
-          }
-        });
+      // 👉 Отправляем оригинальную ссылку в Flutter
+      if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler("onDownloadQr", originalUrl);
       }
+
+      // Дополнительно "скачать" картинку в браузере
+      const link = document.createElement("a");
+      link.href = originalUrl;
+      link.download = "qr-code.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+    } catch (err) {
+      console.error("Ошибка при скачивании QR:", err);
+      alert("Не удалось скачать QR. Попробуйте снова.");
+    }
+  });
+}
+
 
       // const qrDownloadBtnv1 = document.getElementById("download-qr");
       // if (qrDownloadBtnv1) {
