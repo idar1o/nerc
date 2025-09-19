@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: "Тазалык", img: "./images/tazalyk.png", code: "sewerage" },
   ];
 
-  const API_URL = "https://ners.billing.kg/ws/api/v1/clients/temp/estate";
+  const API_URL = "https://ners.billing.kg/ws/public/api/v1/clients/temp/estate";
   const username = "admin-fr";
   const password = "admin";
   const basicAuth = "Basic " + btoa(`${username}:${password}`);
