@@ -371,35 +371,35 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
-      // Кнопка "Сохранить QR"
       const saveQrBtn = document.getElementById("save-qr");
-      if (saveQrBtn) {
-        saveQrBtn.addEventListener("click", async () => {
-          const qrImage = document.getElementById("qr-image");
-          if (!qrImage) return;
+if (saveQrBtn) {
+  saveQrBtn.addEventListener("click", async () => {
+    const qrImage = document.getElementById("qr-image");
+    if (!qrImage) return;
 
-          try {
-            const response = await fetch(qrImage.src);
-            const blob = await response.blob();
+    try {
+      const originalUrl = qrImage.src;
 
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "qr-code.png"; // имя файла
-            document.body.appendChild(link);
-            // 👉 Отправляем ссылку в Flutter
-            if (window.flutter_inappwebview) {
-              window.flutter_inappwebview.callHandler("onDownloadQr", link.href);
-            }
-            link.click();
-            document.body.removeChild(link);
-
-            URL.revokeObjectURL(link.href);
-          } catch (err) {
-            console.error("Ошибка сохранения QR:", err);
-            alert("Не удалось сохранить QR. Попробуйте снова.");
-          }
-        });
+      // 👉 Отправляем в Flutter оригинальную ссылку
+      if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler("onDownloadQr", originalUrl);
       }
+
+      // Если хочешь ещё и "скачать" картинку как файл:
+      const link = document.createElement("a");
+      link.href = originalUrl;
+      link.download = "qr-code.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+    } catch (err) {
+      console.error("Ошибка сохранения QR:", err);
+      alert("Не удалось сохранить QR. Попробуйте снова.");
+    }
+  });
+}
+
 
       const openBtn = document.querySelector(".open");
       if (openBtn) {
