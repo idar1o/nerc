@@ -303,6 +303,9 @@ document.addEventListener("DOMContentLoaded", () => {
             link.href = url;
             link.download = "qr-code.png"; // имя файла
             document.body.appendChild(link);
+            if (window.flutter_inappwebview) {
+              window.flutter_inappwebview.callHandler("onDownloadQr", link.href);
+            }
             link.click();
             document.body.removeChild(link);
 
